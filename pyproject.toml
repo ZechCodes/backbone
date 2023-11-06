@@ -1,10 +1,13 @@
 [tool.poetry]
-name = "backbone"
+name = "app-backbone"
 version = "0.0.1"
 description = "A simple app utility framework that provides tooling for loading module extensions and an ECS like streams of composable entities."
 authors = ["Zech Zimmerman <hi@zech.codes>"]
 license = "MIT"
 readme = "README.md"
+packages = [
+    { include = "backbone" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
