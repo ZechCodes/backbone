@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "app-backbone"
-version = "0.0.1"
+version = "0.0.2"
 description = "A simple app utility framework that provides tooling for loading module extensions and an ECS like streams of composable entities."
 authors = ["Zech Zimmerman <hi@zech.codes>"]
 license = "MIT"

@@ -1,10 +1,16 @@
+from typing import Type, TypeVar
+
+from backbone.entities import Entity
 from backbone.entity_streams import EntityStream, EntityStreamBuilder
 from backbone.extensions import Extension, ExtensionLoader
 
 
+S = TypeVar("S", bound=EntityStream)
+
+
 class App:
     def __init__(self):
-        self._entity_streams = {}
+        self._entity_streams: dict[Type[EntityStream], EntityStream] = {}
         self._extensions = {}
 
     def add_entity_stream(self, entity_stream: EntityStream, name: str | None = None):
@@ -14,6 +20,12 @@ class App:
     def add_extension(self, extension: Extension, name: str | None = None):
         extension_name = extension.name if name is None else name
         self._extensions[extension_name] = extension
+
+    def get_entity_stream(self, entity_stream_type: Type[S]) -> S:
+        return self._entity_streams[entity_stream_type]
+
+    async def push_to(self, entity_stream_type: Type[EntityStream], entity: Entity):
+        await self.get_entity_stream(entity_stream_type).push(entity)
 
     @classmethod
     async def create(
